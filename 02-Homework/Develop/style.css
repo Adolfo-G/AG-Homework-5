@@ -10,7 +10,7 @@ textarea {
   resize: none;
   color: #000000;
   border-left: 1px solid black;
-  padding: 10px;
+  padding: 18px;
 }
 
 .jumbotron {
@@ -84,3 +84,7 @@ textarea {
 .table td{
   padding:unset;
 }
+/* 
+.container{
+  line-height: unset;
+} */
