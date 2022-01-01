@@ -64,7 +64,7 @@ input {
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
   color: white;
-  padding: 64%;
+  padding: 56%;
   line-height: 1;
 }
 
@@ -84,7 +84,3 @@ input {
 .table td{
   padding:unset;
 }
-/* 
-.container{
-  line-height: unset;
-} */
