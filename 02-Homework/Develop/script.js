@@ -3,7 +3,41 @@ $("#currentDay").text(now.format("dddd, MMMM Do YYYY"));
 
 
 const hours=["9 AM","10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"]
-var tasks=[]
+const milTime=[9,10,11,12,13,14,15,16,17]
+const tag=["0","1","2","3","4","5","6","7","8"]
+var tasks=[{
+  "hour":"9 AM",
+  "text":""
+},{
+  "hour":"10 AM",
+  "text":""
+},{
+  "hour":"11 AM",
+  "text":""
+},{
+  "hour":"12 PM",
+  "text":""
+},{
+  "hour":"1 PM",
+  "text":""
+},{
+  "hour":"2 PM",
+  "text":""
+},{
+  "hour":"3 PM",
+  "text":""
+},{
+  "hour":"4 PM",
+  "text":""
+},{
+  "hour":"5 PM",
+  "text":""
+}]
+
+var retrievedData= JSON.parse(localStorage.getItem("tasks"))
+if(retrievedData!=null){
+  tasks=retrievedData
+}
 
 const tableEl=document.querySelector("tbody")
 for(var i =0;i<hours.length;i++){
@@ -20,51 +54,47 @@ for(var i =0;i<hours.length;i++){
     formEl.classList.add("formwidth")
     tableRowEl.appendChild(formEl)
     const formContainer= document.createElement("div")
+    formContainer.classList.add("input-group", "mb-3")
     formEl.appendChild(formContainer)
-    const formItem=document.createElement("textarea")
-    formItem.classList.add("form", "future", "formwidth")
+    const formItem=document.createElement("input")
+    formItem.classList.add("form", "formwidth")//add past present future
+    timeCheck(milTime[i])
     formItem.setAttribute("row","3")
-    formItem.setAttribute("id","exampleFormControlTextarea1")
-    formItem.textContent=""
+    formItem.setAttribute("type","text")
+    formItem.setAttribute("aria-label","Recipient's username")
+    formItem.setAttribute("aria-describedby","button-addon2")
+    formItem.setAttribute("id",`${tag[i]}`)
+    formItem.setAttribute("value",`${tasks[i].text}`)
     formContainer.appendChild(formItem)
     //add button
-    const buttonContainer=document.createElement("td")
-    tableRowEl.appendChild(buttonContainer)
+    const btnContainerEl=document.createElement("td")
+    tableRowEl.appendChild(btnContainerEl)
     const buttonEl=document.createElement("button")
-    buttonEl.classList.add("saveBtn")
+    buttonEl.classList.add("saveBtn","btn","btn-outline-secondary")
+    buttonEl.setAttribute("type","button")
+    buttonEl.setAttribute("id","button-addon2")
+    buttonEl.setAttribute("onclick",`saved(${tag[i]})`)
     buttonEl.textContent="Save"
-    buttonContainer.appendChild(buttonEl)
-    
-    tasks.push({
-        "hour":hours[i],
-        "text":formItem.value
-    })
+    btnContainerEl.appendChild(buttonEl)
 
+    function timeCheck(h){
+      var localTimeHour=moment().format('H')
+      localTimeHour=parseInt(localTimeHour)
+      console.log(localTimeHour)
+      if(localTimeHour==h){
+        return formItem.classList.add("present")
+      }else if(localTimeHour>h){
+        return formItem.classList.add("past")
+      }else{
+        return formItem.classList.add("future")
+      }
+    }
 }
 
-function data(){
-    
+function saved(j){
+  var txt = document.getElementById(`${j}`)
+  console.log(txt.value)
+  tasks[j].text=txt.value
+  console.log(tasks)
+  localStorage.setItem("tasks",JSON.stringify(tasks))
 }
-
-console.log(tasks)
-
-
-
-
-
-
-
-
-{/* <tr>
-            <!-- <th scope="row"></th> -->
-            <td class="hour">9 am</td>
-            <td class="formwidth">
-              <div>
-              <textarea class="form future formwidth" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-            </td>
-            
-            <td>
-              <button class="saveBtn">Save</button>
-            </td>
-          </tr> */}
