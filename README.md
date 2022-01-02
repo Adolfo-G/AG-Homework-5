@@ -2,3 +2,4 @@ The following is a day planner which allows you to enter and save events. The pl
 
 Link deployed here:
 
+![](Assets/preview.jpeg)
