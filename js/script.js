@@ -79,7 +79,6 @@ for(var i =0;i<hours.length;i++){
     function timeCheck(h){
       var localTimeHour=moment().format('H')
       localTimeHour=parseInt(localTimeHour)
-      console.log(localTimeHour)
       if(localTimeHour==h){
         return formItem.classList.add("present")
       }else if(localTimeHour>h){
@@ -92,8 +91,6 @@ for(var i =0;i<hours.length;i++){
 
 function saved(j){
   var txt = document.getElementById(`${j}`)
-  console.log(txt.value)
   tasks[j].text=txt.value
-  console.log(tasks)
   localStorage.setItem("tasks",JSON.stringify(tasks))
 }
